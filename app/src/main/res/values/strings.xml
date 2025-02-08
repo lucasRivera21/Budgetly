@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Budgetly</string>
+
+    <!--Login-->
+    <string name="title_login">Bienvenido a Budgetly</string>
+    <string name="email_login">Correo</string>
+    <string name="password_login">Contraseña</string>
+    <string name="button_text_login">Entrar</string>
+    <string name="new_user_login">¿Eres usuario nuevo?</string>
+    <string name="register_login">Regístrate</string>
+    <string name="forget_password_login">¿Olvidaste tu contraseña?</string>
+    <string name="footer_login">Al estar registrado aceptas</string>
+    <string name="terms_login">los términos y condiciones</string>
 </resources>
