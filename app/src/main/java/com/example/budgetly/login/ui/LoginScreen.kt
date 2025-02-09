@@ -16,9 +16,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -28,11 +26,12 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.budgetly.R
+import com.example.budgetly.login.viewModel.LoginViewModel
 
 @Composable
-fun LoginScreen(modifier: Modifier) {
-    var email by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
+fun LoginScreen(modifier: Modifier, loginViewModel: LoginViewModel) {
+    val email by loginViewModel.email.observeAsState("")
+    val password by loginViewModel.password.observeAsState("")
 
     Column(
         modifier = modifier
@@ -43,7 +42,7 @@ fun LoginScreen(modifier: Modifier) {
     ) {
         Header()
 
-        ContainerOutlineInput(email, { email = it }, password, { password = it })
+        ContainerOutlineInput(loginViewModel, email, password)
 
         ContainerSettingAccount()
 
@@ -65,15 +64,14 @@ fun Header() {
 
 @Composable
 fun ContainerOutlineInput(
+    loginViewModel: LoginViewModel,
     email: String,
-    onChangeEmail: (String) -> Unit,
-    password: String,
-    onChangePassword: (String) -> Unit
+    password: String
 ) {
     Column {
         OutlinedTextField(modifier = Modifier.fillMaxWidth(),
             value = email,
-            onValueChange = { onChangeEmail(it) },
+            onValueChange = { loginViewModel.onChangeEmail(it) },
             label = {
                 Text(stringResource(R.string.email_login))
             })
@@ -83,14 +81,16 @@ fun ContainerOutlineInput(
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = password,
-            onValueChange = { onChangePassword(it) },
+            onValueChange = { loginViewModel.onChangePassword(it) },
             label = {
                 Text(stringResource(R.string.password_login))
             })
 
         Spacer(Modifier.size(32.dp))
 
-        Button(modifier = Modifier.fillMaxWidth(), onClick = {}) {
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = { loginViewModel.verifyEmptyInputs() }) {
             Text(stringResource(R.string.button_text_login), fontSize = 14.sp)
         }
     }
