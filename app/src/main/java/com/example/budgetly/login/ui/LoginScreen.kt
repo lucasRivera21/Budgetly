@@ -1,6 +1,7 @@
 package com.example.budgetly.login.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,23 +24,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.budgetly.R
-import com.example.compose.surfaceLight
-import com.example.ui.theme.displayFontFamily
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(modifier: Modifier) {
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
-            .background(surfaceLight)
-            .padding(horizontal = 16.dp, vertical = 32.dp),
+            .background(MaterialTheme.colorScheme.surface)
+            .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Header()
@@ -59,9 +58,8 @@ fun Header() {
         color = MaterialTheme.colorScheme.onSurface,
         style = MaterialTheme.typography.displaySmall,
         fontWeight = FontWeight.SemiBold,
-        fontFamily = displayFontFamily,
         modifier = Modifier.padding(16.dp),
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
     )
 }
 
@@ -102,16 +100,29 @@ fun ContainerOutlineInput(
 fun ContainerSettingAccount() {
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Row {
-            Text(stringResource(R.string.new_user_login))
+            Text(
+                stringResource(R.string.new_user_login),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface
+            )
             Spacer(Modifier.size(4.dp))
-            Text(stringResource(R.string.register_login), color = MaterialTheme.colorScheme.primary)
+            Text(
+                stringResource(R.string.register_login),
+                color = MaterialTheme.colorScheme.primary,
+                style = MaterialTheme.typography.labelLarge,
+                textDecoration = TextDecoration.Underline,
+                modifier = Modifier.clickable { }
+            )
         }
 
         Spacer(Modifier.size(8.dp))
 
         Text(
             stringResource(R.string.forget_password_login),
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.primary,
+            style = MaterialTheme.typography.labelLarge,
+            textDecoration = TextDecoration.Underline,
+            modifier = Modifier.clickable { }
         )
     }
 }
@@ -119,14 +130,26 @@ fun ContainerSettingAccount() {
 @Composable
 fun Footer() {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-        Text(stringResource(R.string.footer_login))
+        Text(
+            stringResource(R.string.footer_login),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurface
+        )
         Spacer(Modifier.size(4.dp))
-        Text(stringResource(R.string.terms_login))
+        Text(
+            stringResource(R.string.terms_login),
+            textDecoration = TextDecoration.Underline,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.clickable { }
+        )
     }
 }
 
-@Preview(showSystemUi = true)
+/*@Preview(showSystemUi = true)
 @Composable
 fun TestLoginScreen() {
-    LoginScreen()
-}
+    AppTheme {
+        LoginScreen(Modifier.padding(30.dp))
+    }
+}*/
