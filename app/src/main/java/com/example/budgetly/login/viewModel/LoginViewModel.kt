@@ -18,12 +18,19 @@ class LoginViewModel @Inject constructor(@ApplicationContext private val context
     private val _password = MutableLiveData("")
     val password: LiveData<String> = _password
 
+    private val _isVisible = MutableLiveData(false)
+    val isVisible: LiveData<Boolean> = _isVisible
+
     fun onChangeEmail(emailText: String) {
         _email.value = emailText
     }
 
     fun onChangePassword(passwordText: String) {
         _password.value = passwordText
+    }
+
+    fun changeVisibility() {
+        _isVisible.value = !_isVisible.value!!
     }
 
     fun verifyEmptyInputs() {

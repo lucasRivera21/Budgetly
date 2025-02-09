@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -19,8 +20,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -32,6 +36,7 @@ import com.example.budgetly.login.viewModel.LoginViewModel
 fun LoginScreen(modifier: Modifier, loginViewModel: LoginViewModel) {
     val email by loginViewModel.email.observeAsState("")
     val password by loginViewModel.password.observeAsState("")
+    val isVisible by loginViewModel.isVisible.observeAsState(false)
 
     Column(
         modifier = modifier
@@ -42,7 +47,7 @@ fun LoginScreen(modifier: Modifier, loginViewModel: LoginViewModel) {
     ) {
         Header()
 
-        ContainerOutlineInput(loginViewModel, email, password)
+        ContainerOutlineInput(loginViewModel, email, password, isVisible)
 
         ContainerSettingAccount()
 
@@ -66,11 +71,13 @@ fun Header() {
 fun ContainerOutlineInput(
     loginViewModel: LoginViewModel,
     email: String,
-    password: String
+    password: String,
+    isVisible: Boolean
 ) {
     Column {
         OutlinedTextField(modifier = Modifier.fillMaxWidth(),
             value = email,
+            singleLine = true,
             onValueChange = { loginViewModel.onChangeEmail(it) },
             label = {
                 Text(stringResource(R.string.email_login))
@@ -82,6 +89,16 @@ fun ContainerOutlineInput(
             modifier = Modifier.fillMaxWidth(),
             value = password,
             onValueChange = { loginViewModel.onChangePassword(it) },
+            singleLine = true,
+            visualTransformation = if (!isVisible) PasswordVisualTransformation() else VisualTransformation.None,
+            trailingIcon = {
+                Icon(
+                    painter = if (!isVisible) painterResource(R.drawable.ic_visibility_off) else painterResource(
+                        R.drawable.ic_visibility
+                    ),
+                    "icon visibility",
+                    modifier = Modifier.clickable { loginViewModel.changeVisibility() })
+            },
             label = {
                 Text(stringResource(R.string.password_login))
             })
@@ -145,11 +162,3 @@ fun Footer() {
         )
     }
 }
-
-/*@Preview(showSystemUi = true)
-@Composable
-fun TestLoginScreen() {
-    AppTheme {
-        LoginScreen(Modifier.padding(30.dp))
-    }
-}*/
