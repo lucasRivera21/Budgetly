@@ -70,9 +70,13 @@ dependencies {
     //Dagger Hilt
     implementation(libs.hilt.android.v2511)
     kapt(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     //Live Data
     implementation(libs.androidx.runtime.livedata)
+
+    //Navigation
+    implementation(libs.androidx.navigation.compose)
 }
 
 kapt {

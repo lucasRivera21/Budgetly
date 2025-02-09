@@ -29,11 +29,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.budgetly.R
 import com.example.budgetly.login.viewModel.LoginViewModel
 
 @Composable
-fun LoginScreen(modifier: Modifier, loginViewModel: LoginViewModel) {
+fun LoginScreen(modifier: Modifier, loginViewModel: LoginViewModel = hiltViewModel()) {
     val email by loginViewModel.email.observeAsState("")
     val password by loginViewModel.password.observeAsState("")
     val isVisible by loginViewModel.isVisible.observeAsState(false)
