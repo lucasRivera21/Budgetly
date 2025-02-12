@@ -11,4 +11,35 @@
     <string name="forget_password_login">¿Olvidaste tu contraseña?</string>
     <string name="footer_login">Al estar registrado aceptas</string>
     <string name="terms_login">los términos y condiciones</string>
+
+    <!--Register-->
+    <string name="title_register">Registrarse</string>
+    <string name="about_you_register">Primero queremos saber quién eres</string>
+    <string name="name_register">Nombre</string>
+    <string name="last_name_register">Apellido</string>
+    <string name="birthday_register">Fecha de nacimiento</string>
+    <string name="month_1_register">Ene</string>
+    <string name="month_2_register">Feb</string>
+    <string name="month_3_register">Mar</string>
+    <string name="month_4_register">Abr</string>
+    <string name="month_5_register">May</string>
+    <string name="month_6_register">Jun</string>
+    <string name="month_7_register">Jul</string>
+    <string name="month_8_register">Ago</string>
+    <string name="month_9_register">Sep</string>
+    <string name="month_10_register">Oct</string>
+    <string name="month_11_register">Nov</string>
+    <string name="month_12_register">Dic</string>
+    <string name="next_register">Siguiente</string>
+    <string name="about_account_register">Ahora crea tu cuenta</string>
+    <string name="email_register">Correo</string>
+    <string name="password_register">Contraseña</string>
+    <string name="repeat_password_register">Repetir contraseña</string>
+    <string name="about_income_register">Ahora queremos conocer tus ingresos</string>
+    <string name="income_monthly_register">Ingresos mensuales</string>
+    <string name="get_income_register">Tus ingresos los recibes:</string>
+    <string name="weekly_register">Semanalmente</string>
+    <string name="biweekly_register">Quincenalmente</string>
+    <string name="monthly_register">Mensualmente</string>
+    <string name="register_register">Registrarse</string>
 </resources>

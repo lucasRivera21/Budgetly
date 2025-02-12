@@ -30,11 +30,13 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.budgetly.R
 import com.example.budgetly.login.viewModel.LoginViewModel
+import com.example.budgetly.navigation.NavigationItem
 
 @Composable
-fun LoginScreen(modifier: Modifier, loginViewModel: LoginViewModel = hiltViewModel()) {
+fun LoginScreen(modifier: Modifier, navController: NavController, loginViewModel: LoginViewModel = hiltViewModel()) {
     val email by loginViewModel.email.observeAsState("")
     val password by loginViewModel.password.observeAsState("")
     val isVisible by loginViewModel.isVisible.observeAsState(false)
@@ -50,7 +52,7 @@ fun LoginScreen(modifier: Modifier, loginViewModel: LoginViewModel = hiltViewMod
 
         ContainerOutlineInput(loginViewModel, email, password, isVisible)
 
-        ContainerSettingAccount()
+        ContainerSettingAccount(navController)
 
         Footer()
     }
@@ -98,7 +100,8 @@ fun ContainerOutlineInput(
                         R.drawable.ic_visibility
                     ),
                     "icon visibility",
-                    modifier = Modifier.clickable { loginViewModel.changeVisibility() })
+                    modifier = Modifier.clickable { loginViewModel.changeVisibility() },
+                    tint = MaterialTheme.colorScheme.onSurface)
             },
             label = {
                 Text(stringResource(R.string.password_login))
@@ -115,7 +118,7 @@ fun ContainerOutlineInput(
 }
 
 @Composable
-fun ContainerSettingAccount() {
+fun ContainerSettingAccount(navController: NavController) {
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Row {
             Text(
@@ -129,7 +132,9 @@ fun ContainerSettingAccount() {
                 color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.labelLarge,
                 textDecoration = TextDecoration.Underline,
-                modifier = Modifier.clickable { }
+                modifier = Modifier.clickable {
+                    navController.navigate(NavigationItem.Register.route)
+                }
             )
         }
 

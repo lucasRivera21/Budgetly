@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.budgetly.login.ui.LoginScreen
+import com.example.budgetly.register.ui.RegisterScreen
 
 @Composable
 fun AppNavigation(innerPadding: PaddingValues) {
@@ -16,7 +17,11 @@ fun AppNavigation(innerPadding: PaddingValues) {
 
     NavHost(navController = navController, startDestination = NavigationItem.Login.route) {
         composable(NavigationItem.Login.route) {
-            LoginScreen(modifier)
+            LoginScreen(modifier, navController)
+        }
+
+        composable(NavigationItem.Register.route) {
+            RegisterScreen()
         }
     }
 }
