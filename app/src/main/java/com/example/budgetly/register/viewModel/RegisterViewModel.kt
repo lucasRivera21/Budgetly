@@ -12,6 +12,7 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
     private val _step = MutableLiveData(1)
     val step: LiveData<Int> = _step
 
+    //Firs Step
     private val _name = MutableLiveData("")
     val name: LiveData<String> = _name
 
@@ -27,6 +28,25 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
     private val _yearValue = MutableLiveData<Int>()
     val yearValue: LiveData<Int> = _yearValue
 
+    //Second Step
+    private val _email = MutableLiveData("")
+    val email: LiveData<String> = _email
+
+    private val _password = MutableLiveData("")
+    val password: LiveData<String> = _password
+
+    private val _repeatPassword = MutableLiveData("")
+    val repeatPassword: LiveData<String> = _repeatPassword
+
+    fun onNextStep() {
+        _step.value = _step.value!! + 1
+    }
+
+    fun onBackStep() {
+        _step.value = _step.value!! - 1
+    }
+
+    //First Step
     fun onChangeName(text: String) {
         _name.value = text
     }
@@ -41,13 +61,13 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun putFirstMonth(firsMonth: String){
+    fun putFirstMonth(firsMonth: String) {
         _monthValue.value = firsMonth
     }
 
-    fun getNumberDayDependsMonth(monthList: List<String>): IntRange{
-        if(_monthValue.value == monthList[1]){
-            return 1 .. 28
+    fun getNumberDayDependsMonth(monthList: List<String>): IntRange {
+        if (_monthValue.value == monthList[1]) {
+            return 1..28
         }
 
         val index = monthList.indexOf(_monthValue.value)
@@ -69,5 +89,18 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
 
     fun onChangeYearValue(year: Int) {
         _yearValue.value = year
+    }
+
+    //Second Step
+    fun onChangeEmail(email: String) {
+        _email.value = email
+    }
+
+    fun onChangePassword(password: String) {
+        _password.value = password
+    }
+
+    fun onChangeRepeatPassword(repeatPassword: String) {
+        _repeatPassword.value = repeatPassword
     }
 }

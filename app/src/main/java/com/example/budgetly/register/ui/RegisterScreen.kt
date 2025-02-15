@@ -28,9 +28,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.budgetly.Credentials.Companion.NUMBER_OF_STEPS
 import com.example.budgetly.R
 import com.example.budgetly.components.CustomButton
-import com.example.budgetly.components.CustomOutlinedTextField
+import com.example.budgetly.register.ui.components.FirstStepRegister
 import com.example.budgetly.register.ui.components.RegisterAdvance
-import com.example.budgetly.register.ui.components.RegisterBirthDayPicker
+import com.example.budgetly.register.ui.components.SecondStepRegister
 import com.example.budgetly.register.viewModel.RegisterViewModel
 import com.example.budgetly.ui.theme.AppTheme
 
@@ -38,12 +38,17 @@ import com.example.budgetly.ui.theme.AppTheme
 fun RegisterScreen(registerViewModel: RegisterViewModel = hiltViewModel()) {
     val step by registerViewModel.step.observeAsState(1)
 
+    //First Step
     val name by registerViewModel.name.observeAsState("")
     val lastName by registerViewModel.lastName.observeAsState("")
-
     val dayValue by registerViewModel.dayValue.observeAsState(1)
     val monthValue by registerViewModel.monthValue.observeAsState()
     val yearValue by registerViewModel.yearValue.observeAsState()
+
+    //Second Step
+    val email by registerViewModel.email.observeAsState("")
+    val password by registerViewModel.password.observeAsState("")
+    val repeatPassword by registerViewModel.repeatPassword.observeAsState("")
 
     LaunchedEffect(Unit) {
         registerViewModel.getCurrentYear()
@@ -57,22 +62,32 @@ fun RegisterScreen(registerViewModel: RegisterViewModel = hiltViewModel()) {
         verticalArrangement = Arrangement.SpaceBetween
     ) {
 
-        Header()
+        Header(registerViewModel)
 
-        InputsBody(name, lastName, dayValue, monthValue, yearValue, registerViewModel)
+        InputsBody(
+            name,
+            lastName,
+            dayValue,
+            monthValue,
+            yearValue,
+            email,
+            password,
+            repeatPassword,
+            step
+        )
 
-        Footer(step)
+        Footer(step, registerViewModel)
     }
 }
 
 @Composable
-fun Header() {
+fun Header(registerViewModel: RegisterViewModel) {
     Row(
         modifier = Modifier
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        IconButton(onClick = {}) {
+        IconButton(onClick = { registerViewModel.onBackStep() }) {
             Icon(
                 painter = painterResource(R.drawable.ic_arrow_back),
                 contentDescription = "arrow-back",
@@ -97,49 +112,58 @@ fun InputsBody(
     dayValue: Int,
     monthValue: String?,
     yearValue: Int?,
-    registerViewModel: RegisterViewModel,
+    email: String,
+    password: String,
+    repeatPassword: String,
+    step: Int
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
-            text = stringResource(R.string.about_you_register),
+            text = when (step) {
+                1 -> stringResource(R.string.about_you_register)
+                2 -> stringResource(R.string.about_account_register)
+                else -> stringResource(R.string.about_income_register)
+            },
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface
         )
 
         Spacer(Modifier.size(64.dp))
 
-        CustomOutlinedTextField(stringResource(R.string.name_register), name) {
-            registerViewModel.onChangeName(it)
+        when (step) {
+            1 -> {
+                FirstStepRegister(
+                    name = name,
+                    lastName = lastName,
+                    dayValue = dayValue,
+                    monthValue = monthValue,
+                    yearValue = yearValue,
+                )
+            }
+
+            2 -> {
+                SecondStepRegister(
+                    email = email,
+                    password = password,
+                    repeatPassword = repeatPassword,
+                )
+            }
         }
 
-        Spacer(Modifier.size(16.dp))
 
-        CustomOutlinedTextField(stringResource(R.string.last_name_register), lastName) {
-            registerViewModel.onChangeLastName(it)
-        }
-
-        Spacer(Modifier.size(16.dp))
-
-        Text(
-            text = stringResource(R.string.birthday_register),
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.bodyLarge
-        )
-
-        Spacer(Modifier.size(8.dp))
-
-        RegisterBirthDayPicker(dayValue, monthValue, yearValue, registerViewModel)
     }
 }
 
 @Composable
-fun Footer(step: Int) {
+fun Footer(step: Int, registerViewModel: RegisterViewModel) {
     Column {
         RegisterAdvance(step, NUMBER_OF_STEPS)
 
         Spacer(Modifier.size(24.dp))
 
-        CustomButton(stringResource(R.string.next_register)) { }
+        CustomButton(stringResource(R.string.next_register)) {
+            registerViewModel.onNextStep()
+        }
     }
 
 }
