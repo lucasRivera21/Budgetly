@@ -50,16 +50,13 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
             return 1 .. 28
         }
 
-        if(_monthValue.value == monthList[7]){
-            return 1 .. 31
-        }
-
         val index = monthList.indexOf(_monthValue.value)
-        if(index % 2 == 0){
-            return 1 .. 31
-        }
 
-        return 1 .. 30
+        return if ((index % 2 == 0 && index < 7) || (index % 2 != 0 && index >= 7)) {
+            1..31
+        } else {
+            1..30
+        }
     }
 
     fun onChangeDayValue(day: Int) {
