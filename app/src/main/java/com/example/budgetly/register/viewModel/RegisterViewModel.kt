@@ -38,6 +38,16 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
     private val _repeatPassword = MutableLiveData("")
     val repeatPassword: LiveData<String> = _repeatPassword
 
+    //Third Step
+    private val _incomeValue = MutableLiveData("")
+    val incomeValue: LiveData<String> = _incomeValue
+
+    private val _moneyType = MutableLiveData("USD")
+    val moneyType: LiveData<String> = _moneyType
+
+    private val _incomeConcurrent = MutableLiveData<String>()
+    val incomeConcurrent: LiveData<String> = _incomeConcurrent
+
     fun onNextStep() {
         _step.value = _step.value!! + 1
     }
@@ -59,10 +69,6 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
         if (_yearValue.value == null) {
             _yearValue.value = Year.now().value
         }
-    }
-
-    fun putFirstMonth(firsMonth: String) {
-        _monthValue.value = firsMonth
     }
 
     fun getNumberDayDependsMonth(monthList: List<String>): IntRange {
@@ -102,5 +108,18 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
 
     fun onChangeRepeatPassword(repeatPassword: String) {
         _repeatPassword.value = repeatPassword
+    }
+
+    //Third Step
+    fun onChangeIncomeValue(incomeValue: String) {
+        _incomeValue.value = incomeValue
+    }
+
+    fun onChangeMoneyType(moneyTypeSelected: String) {
+        _moneyType.value = moneyTypeSelected
+    }
+
+    fun onChangeIncomeConcurrent(incomeConcurrentSelected: String) {
+        _incomeConcurrent.value = incomeConcurrentSelected
     }
 }

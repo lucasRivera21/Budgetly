@@ -31,6 +31,7 @@ import com.example.budgetly.components.CustomButton
 import com.example.budgetly.register.ui.components.FirstStepRegister
 import com.example.budgetly.register.ui.components.RegisterAdvance
 import com.example.budgetly.register.ui.components.SecondStepRegister
+import com.example.budgetly.register.ui.components.ThirdStepRegister
 import com.example.budgetly.register.viewModel.RegisterViewModel
 import com.example.budgetly.ui.theme.AppTheme
 
@@ -49,6 +50,11 @@ fun RegisterScreen(registerViewModel: RegisterViewModel = hiltViewModel()) {
     val email by registerViewModel.email.observeAsState("")
     val password by registerViewModel.password.observeAsState("")
     val repeatPassword by registerViewModel.repeatPassword.observeAsState("")
+
+    //Third Step
+    val incomeValue by registerViewModel.incomeValue.observeAsState("")
+    val moneyType by registerViewModel.moneyType.observeAsState("USD")
+    val incomeConcurrent by registerViewModel.incomeConcurrent.observeAsState()
 
     LaunchedEffect(Unit) {
         registerViewModel.getCurrentYear()
@@ -73,6 +79,9 @@ fun RegisterScreen(registerViewModel: RegisterViewModel = hiltViewModel()) {
             email,
             password,
             repeatPassword,
+            incomeValue,
+            moneyType,
+            incomeConcurrent,
             step
         )
 
@@ -115,6 +124,9 @@ fun InputsBody(
     email: String,
     password: String,
     repeatPassword: String,
+    incomeValue: String,
+    moneyType: String,
+    incomeConcurrent: String?,
     step: Int
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -148,6 +160,14 @@ fun InputsBody(
                     repeatPassword = repeatPassword,
                 )
             }
+
+            3 -> {
+                ThirdStepRegister(
+                    incomeValue = incomeValue,
+                    moneyType = moneyType,
+                    incomeConcurrent = incomeConcurrent,
+                )
+            }
         }
 
 
@@ -161,7 +181,7 @@ fun Footer(step: Int, registerViewModel: RegisterViewModel) {
 
         Spacer(Modifier.size(24.dp))
 
-        CustomButton(stringResource(R.string.next_register)) {
+        CustomButton(if (step == 3) stringResource(R.string.register_register) else stringResource(R.string.next_register)) {
             registerViewModel.onNextStep()
         }
     }

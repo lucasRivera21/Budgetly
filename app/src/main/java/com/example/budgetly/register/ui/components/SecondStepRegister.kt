@@ -1,6 +1,5 @@
 package com.example.budgetly.register.ui.components
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -20,21 +19,19 @@ fun SecondStepRegister(
     repeatPassword: String,
     registerViewModel: RegisterViewModel = hiltViewModel()
 ) {
-    Column {
-        CustomOutlinedTextField(stringResource(R.string.email_register), email) {
-            registerViewModel.onChangeEmail(it)
-        }
+    CustomOutlinedTextField(stringResource(R.string.email_register), email) {
+        registerViewModel.onChangeEmail(it)
+    }
 
-        Spacer(Modifier.size(16.dp))
+    Spacer(Modifier.size(16.dp))
 
-        CustomPasswordTextField(stringResource(R.string.password_register), password) {
-            registerViewModel.onChangePassword(it)
-        }
+    CustomPasswordTextField(stringResource(R.string.password_register), password) {
+        registerViewModel.onChangePassword(it)
+    }
 
-        Spacer(Modifier.size(16.dp))
+    Spacer(Modifier.size(16.dp))
 
-        CustomPasswordTextField(stringResource(R.string.repeat_password_register), repeatPassword) {
-            registerViewModel.onChangeRepeatPassword(it)
-        }
+    CustomPasswordTextField(stringResource(R.string.repeat_password_register), repeatPassword) {
+        registerViewModel.onChangeRepeatPassword(it)
     }
 }
