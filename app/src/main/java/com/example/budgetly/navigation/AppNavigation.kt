@@ -21,7 +21,7 @@ fun AppNavigation(innerPadding: PaddingValues) {
         }
 
         composable(NavigationItem.Register.route) {
-            RegisterScreen()
+            RegisterScreen(navController)
         }
     }
 }

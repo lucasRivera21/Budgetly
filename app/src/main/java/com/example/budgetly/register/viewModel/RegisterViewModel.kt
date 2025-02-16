@@ -1,14 +1,20 @@
 package com.example.budgetly.register.viewModel
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import com.example.budgetly.navigation.NavigationItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.Year
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor() : ViewModel() {
+class RegisterViewModel @Inject constructor(@ApplicationContext private val context: Context) :
+    ViewModel() {
     private val _step = MutableLiveData(1)
     val step: LiveData<Int> = _step
 
@@ -48,11 +54,11 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
     private val _incomeConcurrent = MutableLiveData<String>()
     val incomeConcurrent: LiveData<String> = _incomeConcurrent
 
-    fun onNextStep() {
-        _step.value = _step.value!! + 1
-    }
-
-    fun onBackStep() {
+    fun onBackStep(navController: NavController) {
+        if(_step.value == 1){
+            navController.navigate(NavigationItem.Login.route)
+            return
+        }
         _step.value = _step.value!! - 1
     }
 
@@ -121,5 +127,42 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
 
     fun onChangeIncomeConcurrent(incomeConcurrentSelected: String) {
         _incomeConcurrent.value = incomeConcurrentSelected
+    }
+
+    //Validate Step
+    fun onValidateInputs(textToast: String, textToasRepeat: String) {
+        when (_step.value) {
+            1 -> {
+                if (_name.value!!.isEmpty() || _lastName.value!!.isEmpty()) {
+                    Toast.makeText(context, textToast, Toast.LENGTH_LONG).show()
+                    return
+                }
+
+                _step.value = _step.value!! + 1
+            }
+
+            2 -> {
+                if (_email.value!!.isEmpty() || _password.value!!.isEmpty() || _repeatPassword.value!!.isEmpty()) {
+                    Toast.makeText(context, textToast, Toast.LENGTH_LONG).show()
+                    return
+                }
+
+                if (_password.value != _repeatPassword.value) {
+                    Toast.makeText(context, textToasRepeat, Toast.LENGTH_LONG).show()
+                    return
+                }
+
+                _step.value = _step.value!! + 1
+            }
+
+            3 -> {
+                if (_incomeValue.value!!.isEmpty()) {
+                    Toast.makeText(context, textToast, Toast.LENGTH_LONG).show()
+                    return
+                }
+
+                _step.value = 1
+            }
+        }
     }
 }

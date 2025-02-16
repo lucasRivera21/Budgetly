@@ -3,6 +3,7 @@ package com.example.budgetly.register.ui.components
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.res.stringResource
 import com.chargemap.compose.numberpicker.ListItemPicker
 import com.chargemap.compose.numberpicker.NumberPicker
@@ -30,6 +31,12 @@ fun RegisterBirthDayPicker(
         stringResource(R.string.month_11_register),
         stringResource(R.string.month_12_register)
     )
+
+    LaunchedEffect(Unit) {
+        if (monthValue == null) {
+            registerViewModel.onChangeMonthValue(monthList[0])
+        }
+    }
 
     Row {
         ListItemPicker(

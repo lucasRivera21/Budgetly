@@ -2,6 +2,7 @@ package com.example.budgetly.register.ui.components
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.res.stringResource
 import com.chargemap.compose.numberpicker.ListItemPicker
 import com.example.budgetly.R
@@ -17,6 +18,12 @@ fun RegisterGetIncome(
         stringResource(R.string.biweekly_register),
         stringResource(R.string.monthly_register)
     )
+
+    LaunchedEffect(Unit) {
+        if (incomeConcurrent == null) {
+            registerViewModel.onChangeIncomeConcurrent(incomeConcurrentList[0])
+        }
+    }
 
     ListItemPicker(
         label = { it },

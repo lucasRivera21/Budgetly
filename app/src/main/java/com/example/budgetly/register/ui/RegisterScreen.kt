@@ -22,9 +22,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.budgetly.Credentials.Companion.NUMBER_OF_STEPS
 import com.example.budgetly.R
 import com.example.budgetly.components.CustomButton
@@ -33,10 +33,12 @@ import com.example.budgetly.register.ui.components.RegisterAdvance
 import com.example.budgetly.register.ui.components.SecondStepRegister
 import com.example.budgetly.register.ui.components.ThirdStepRegister
 import com.example.budgetly.register.viewModel.RegisterViewModel
-import com.example.budgetly.ui.theme.AppTheme
 
 @Composable
-fun RegisterScreen(registerViewModel: RegisterViewModel = hiltViewModel()) {
+fun RegisterScreen(
+    navController: NavController,
+    registerViewModel: RegisterViewModel = hiltViewModel()
+) {
     val step by registerViewModel.step.observeAsState(1)
 
     //First Step
@@ -56,6 +58,9 @@ fun RegisterScreen(registerViewModel: RegisterViewModel = hiltViewModel()) {
     val moneyType by registerViewModel.moneyType.observeAsState("USD")
     val incomeConcurrent by registerViewModel.incomeConcurrent.observeAsState()
 
+    val textInputsEmpty = stringResource(R.string.validate_inputs_empty)
+    val textPasswordsDiff = stringResource(R.string.validate_passwords_diff)
+
     LaunchedEffect(Unit) {
         registerViewModel.getCurrentYear()
     }
@@ -68,7 +73,7 @@ fun RegisterScreen(registerViewModel: RegisterViewModel = hiltViewModel()) {
         verticalArrangement = Arrangement.SpaceBetween
     ) {
 
-        Header(registerViewModel)
+        Header(navController, registerViewModel)
 
         InputsBody(
             name,
@@ -85,18 +90,18 @@ fun RegisterScreen(registerViewModel: RegisterViewModel = hiltViewModel()) {
             step
         )
 
-        Footer(step, registerViewModel)
+        Footer(step, textInputsEmpty, textPasswordsDiff, registerViewModel)
     }
 }
 
 @Composable
-fun Header(registerViewModel: RegisterViewModel) {
+fun Header(navController: NavController, registerViewModel: RegisterViewModel) {
     Row(
         modifier = Modifier
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        IconButton(onClick = { registerViewModel.onBackStep() }) {
+        IconButton(onClick = { registerViewModel.onBackStep(navController) }) {
             Icon(
                 painter = painterResource(R.drawable.ic_arrow_back),
                 contentDescription = "arrow-back",
@@ -175,23 +180,20 @@ fun InputsBody(
 }
 
 @Composable
-fun Footer(step: Int, registerViewModel: RegisterViewModel) {
+fun Footer(
+    step: Int,
+    textInputsEmpty: String,
+    textPasswordsDiff: String,
+    registerViewModel: RegisterViewModel
+) {
     Column {
         RegisterAdvance(step, NUMBER_OF_STEPS)
 
         Spacer(Modifier.size(24.dp))
 
         CustomButton(if (step == 3) stringResource(R.string.register_register) else stringResource(R.string.next_register)) {
-            registerViewModel.onNextStep()
+            registerViewModel.onValidateInputs(textInputsEmpty, textPasswordsDiff)
         }
     }
 
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun TestingRegister() {
-    AppTheme {
-        RegisterScreen()
-    }
 }
