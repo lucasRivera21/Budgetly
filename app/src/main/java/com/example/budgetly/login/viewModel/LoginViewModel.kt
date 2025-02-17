@@ -5,6 +5,9 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import com.example.budgetly.navigation.NavigationItem
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -33,12 +36,19 @@ class LoginViewModel @Inject constructor(@ApplicationContext private val context
         _isVisible.value = !_isVisible.value!!
     }
 
-    fun verifyEmptyInputs() {
+    fun verifyEmptyInputs(auth: FirebaseAuth, navController: NavController) {
         if (_email.value!!.isEmpty() || _password.value!!.isEmpty()) {
             return
         }
 
-        Toast.makeText(context, "Iniciando sesion ...", Toast.LENGTH_LONG).show()
+        auth.signInWithEmailAndPassword(_email.value!!, _password.value!!)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    navController.navigate(NavigationItem.Home.route)
+                } else {
+                    Toast.makeText(context, "No se pudo loguear", Toast.LENGTH_LONG).show()
+                }
+            }
     }
 
 }

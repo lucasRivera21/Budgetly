@@ -33,10 +33,13 @@ import com.example.budgetly.register.ui.components.RegisterAdvance
 import com.example.budgetly.register.ui.components.SecondStepRegister
 import com.example.budgetly.register.ui.components.ThirdStepRegister
 import com.example.budgetly.register.viewModel.RegisterViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun RegisterScreen(
+    modifier: Modifier,
     navController: NavController,
+    auth: FirebaseAuth,
     registerViewModel: RegisterViewModel = hiltViewModel()
 ) {
     val step by registerViewModel.step.observeAsState(1)
@@ -66,10 +69,10 @@ fun RegisterScreen(
     }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.surface)
-            .padding(16.dp),
+            .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
 
@@ -90,7 +93,7 @@ fun RegisterScreen(
             step
         )
 
-        Footer(step, textInputsEmpty, textPasswordsDiff, registerViewModel)
+        Footer(step, textInputsEmpty, textPasswordsDiff, navController, auth, registerViewModel)
     }
 }
 
@@ -184,6 +187,8 @@ fun Footer(
     step: Int,
     textInputsEmpty: String,
     textPasswordsDiff: String,
+    navController: NavController,
+    auth: FirebaseAuth,
     registerViewModel: RegisterViewModel
 ) {
     Column {
@@ -192,7 +197,7 @@ fun Footer(
         Spacer(Modifier.size(24.dp))
 
         CustomButton(if (step == 3) stringResource(R.string.register_register) else stringResource(R.string.next_register)) {
-            registerViewModel.onValidateInputs(textInputsEmpty, textPasswordsDiff)
+            registerViewModel.onValidateInputs(textInputsEmpty, textPasswordsDiff, navController, auth)
         }
     }
 

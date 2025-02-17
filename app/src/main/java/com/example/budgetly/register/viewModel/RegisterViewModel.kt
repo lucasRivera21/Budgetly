@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.budgetly.navigation.NavigationItem
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.Year
@@ -55,7 +56,7 @@ class RegisterViewModel @Inject constructor(@ApplicationContext private val cont
     val incomeConcurrent: LiveData<String> = _incomeConcurrent
 
     fun onBackStep(navController: NavController) {
-        if(_step.value == 1){
+        if (_step.value == 1) {
             navController.navigate(NavigationItem.Login.route)
             return
         }
@@ -130,7 +131,12 @@ class RegisterViewModel @Inject constructor(@ApplicationContext private val cont
     }
 
     //Validate Step
-    fun onValidateInputs(textToast: String, textToasRepeat: String) {
+    fun onValidateInputs(
+        textToast: String,
+        textToasRepeat: String,
+        navController: NavController,
+        auth: FirebaseAuth
+    ) {
         when (_step.value) {
             1 -> {
                 if (_name.value!!.isEmpty() || _lastName.value!!.isEmpty()) {
@@ -161,7 +167,15 @@ class RegisterViewModel @Inject constructor(@ApplicationContext private val cont
                     return
                 }
 
-                _step.value = 1
+                auth.createUserWithEmailAndPassword(_email.value!!, _password.value!!)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            navController.navigate(NavigationItem.Home.route)
+                        } else {
+                            Toast.makeText(context, "No se pudo registrar", Toast.LENGTH_LONG)
+                                .show()
+                        }
+                    }
             }
         }
     }

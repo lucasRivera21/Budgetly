@@ -34,9 +34,15 @@ import androidx.navigation.NavController
 import com.example.budgetly.R
 import com.example.budgetly.login.viewModel.LoginViewModel
 import com.example.budgetly.navigation.NavigationItem
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
-fun LoginScreen(modifier: Modifier, navController: NavController, loginViewModel: LoginViewModel = hiltViewModel()) {
+fun LoginScreen(
+    modifier: Modifier,
+    navController: NavController,
+    auth: FirebaseAuth,
+    loginViewModel: LoginViewModel = hiltViewModel()
+) {
     val email by loginViewModel.email.observeAsState("")
     val password by loginViewModel.password.observeAsState("")
     val isVisible by loginViewModel.isVisible.observeAsState(false)
@@ -50,7 +56,7 @@ fun LoginScreen(modifier: Modifier, navController: NavController, loginViewModel
     ) {
         Header()
 
-        ContainerOutlineInput(loginViewModel, email, password, isVisible)
+        ContainerOutlineInput(loginViewModel, email, password, isVisible, auth, navController)
 
         ContainerSettingAccount(navController)
 
@@ -75,7 +81,9 @@ fun ContainerOutlineInput(
     loginViewModel: LoginViewModel,
     email: String,
     password: String,
-    isVisible: Boolean
+    isVisible: Boolean,
+    auth: FirebaseAuth,
+    navController: NavController
 ) {
     Column {
         OutlinedTextField(modifier = Modifier.fillMaxWidth(),
@@ -101,7 +109,8 @@ fun ContainerOutlineInput(
                     ),
                     "icon visibility",
                     modifier = Modifier.clickable { loginViewModel.changeVisibility() },
-                    tint = MaterialTheme.colorScheme.onSurface)
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
             },
             label = {
                 Text(stringResource(R.string.password_login))
@@ -111,7 +120,7 @@ fun ContainerOutlineInput(
 
         Button(
             modifier = Modifier.fillMaxWidth(),
-            onClick = { loginViewModel.verifyEmptyInputs() }) {
+            onClick = { loginViewModel.verifyEmptyInputs(auth, navController) }) {
             Text(stringResource(R.string.button_text_login), fontSize = 14.sp)
         }
     }
