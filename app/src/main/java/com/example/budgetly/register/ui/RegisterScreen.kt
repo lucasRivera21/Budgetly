@@ -28,10 +28,10 @@ import androidx.navigation.NavController
 import com.example.budgetly.Credentials.Companion.NUMBER_OF_STEPS
 import com.example.budgetly.R
 import com.example.budgetly.components.CustomButton
-import com.example.budgetly.register.ui.components.FirstStepRegister
+import com.example.budgetly.register.ui.components.AboutAccountRegister
+import com.example.budgetly.register.ui.components.AboutIncomeRegister
+import com.example.budgetly.register.ui.components.AboutUserRegister
 import com.example.budgetly.register.ui.components.RegisterAdvance
-import com.example.budgetly.register.ui.components.SecondStepRegister
-import com.example.budgetly.register.ui.components.ThirdStepRegister
 import com.example.budgetly.register.viewModel.RegisterViewModel
 import com.google.firebase.auth.FirebaseAuth
 
@@ -141,8 +141,8 @@ fun InputsBody(
         Text(
             text = when (step) {
                 1 -> stringResource(R.string.about_you_register)
-                2 -> stringResource(R.string.about_account_register)
-                else -> stringResource(R.string.about_income_register)
+                2 -> stringResource(R.string.about_income_register)
+                else -> stringResource(R.string.about_account_register)
             },
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface
@@ -152,7 +152,7 @@ fun InputsBody(
 
         when (step) {
             1 -> {
-                FirstStepRegister(
+                AboutUserRegister(
                     name = name,
                     lastName = lastName,
                     dayValue = dayValue,
@@ -162,18 +162,18 @@ fun InputsBody(
             }
 
             2 -> {
-                SecondStepRegister(
-                    email = email,
-                    password = password,
-                    repeatPassword = repeatPassword,
+                AboutIncomeRegister(
+                    incomeValue = incomeValue,
+                    moneyType = moneyType,
+                    incomeConcurrent = incomeConcurrent,
                 )
             }
 
             3 -> {
-                ThirdStepRegister(
-                    incomeValue = incomeValue,
-                    moneyType = moneyType,
-                    incomeConcurrent = incomeConcurrent,
+                AboutAccountRegister(
+                    email = email,
+                    password = password,
+                    repeatPassword = repeatPassword,
                 )
             }
         }
@@ -197,7 +197,12 @@ fun Footer(
         Spacer(Modifier.size(24.dp))
 
         CustomButton(if (step == 3) stringResource(R.string.register_register) else stringResource(R.string.next_register)) {
-            registerViewModel.onValidateInputs(textInputsEmpty, textPasswordsDiff, navController, auth)
+            registerViewModel.onValidateInputs(
+                textInputsEmpty,
+                textPasswordsDiff,
+                navController,
+                auth
+            )
         }
     }
 

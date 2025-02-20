@@ -13,7 +13,7 @@ import com.example.budgetly.components.CustomPasswordTextField
 import com.example.budgetly.register.viewModel.RegisterViewModel
 
 @Composable
-fun SecondStepRegister(
+fun AboutAccountRegister(
     email: String,
     password: String,
     repeatPassword: String,

@@ -18,7 +18,7 @@ import com.example.budgetly.components.CustomNumberTextField
 import com.example.budgetly.register.viewModel.RegisterViewModel
 
 @Composable
-fun ThirdStepRegister(
+fun AboutIncomeRegister(
     incomeValue: String,
     moneyType: String,
     incomeConcurrent: String?,

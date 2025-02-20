@@ -133,7 +133,7 @@ class RegisterViewModel @Inject constructor(@ApplicationContext private val cont
     //Validate Step
     fun onValidateInputs(
         textToast: String,
-        textToasRepeat: String,
+        textToastRepeat: String,
         navController: NavController,
         auth: FirebaseAuth
     ) {
@@ -148,13 +148,8 @@ class RegisterViewModel @Inject constructor(@ApplicationContext private val cont
             }
 
             2 -> {
-                if (_email.value!!.isEmpty() || _password.value!!.isEmpty() || _repeatPassword.value!!.isEmpty()) {
+                if (_incomeValue.value!!.isEmpty()) {
                     Toast.makeText(context, textToast, Toast.LENGTH_LONG).show()
-                    return
-                }
-
-                if (_password.value != _repeatPassword.value) {
-                    Toast.makeText(context, textToasRepeat, Toast.LENGTH_LONG).show()
                     return
                 }
 
@@ -162,8 +157,13 @@ class RegisterViewModel @Inject constructor(@ApplicationContext private val cont
             }
 
             3 -> {
-                if (_incomeValue.value!!.isEmpty()) {
+                if (_email.value!!.isEmpty() || _password.value!!.isEmpty() || _repeatPassword.value!!.isEmpty()) {
                     Toast.makeText(context, textToast, Toast.LENGTH_LONG).show()
+                    return
+                }
+
+                if (_password.value != _repeatPassword.value) {
+                    Toast.makeText(context, textToastRepeat, Toast.LENGTH_LONG).show()
                     return
                 }
 
@@ -172,8 +172,13 @@ class RegisterViewModel @Inject constructor(@ApplicationContext private val cont
                         if (task.isSuccessful) {
                             navController.navigate(NavigationItem.Home.route)
                         } else {
-                            Toast.makeText(context, "No se pudo registrar", Toast.LENGTH_LONG)
-                                .show()
+                            if(task.exception?.message == "The email address is already in use by another account."){
+                                Toast.makeText(context, "El correo ya esta en uso", Toast.LENGTH_LONG)
+                                    .show()
+                            }else{
+                                Toast.makeText(context, "No se pudo registrar", Toast.LENGTH_LONG)
+                                    .show()
+                            }
                         }
                     }
             }

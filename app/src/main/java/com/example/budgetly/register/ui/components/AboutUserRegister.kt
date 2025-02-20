@@ -14,7 +14,7 @@ import com.example.budgetly.components.CustomOutlinedTextField
 import com.example.budgetly.register.viewModel.RegisterViewModel
 
 @Composable
-fun FirstStepRegister(
+fun AboutUserRegister(
     name: String,
     lastName: String,
     dayValue: Int,
