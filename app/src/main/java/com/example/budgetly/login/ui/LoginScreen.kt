@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -46,6 +47,7 @@ fun LoginScreen(
     val email by loginViewModel.email.observeAsState("")
     val password by loginViewModel.password.observeAsState("")
     val isVisible by loginViewModel.isVisible.observeAsState(false)
+    val isLoading by loginViewModel.isLoading.observeAsState(false)
 
     Column(
         modifier = modifier
@@ -56,7 +58,15 @@ fun LoginScreen(
     ) {
         Header()
 
-        ContainerOutlineInput(loginViewModel, email, password, isVisible, auth, navController)
+        ContainerOutlineInput(
+            loginViewModel,
+            email,
+            password,
+            isVisible,
+            auth,
+            navController,
+            isLoading
+        )
 
         ContainerSettingAccount(navController)
 
@@ -83,8 +93,10 @@ fun ContainerOutlineInput(
     password: String,
     isVisible: Boolean,
     auth: FirebaseAuth,
-    navController: NavController
+    navController: NavController,
+    isLoading: Boolean
 ) {
+    val inputsText = stringResource(R.string.validate_inputs_empty)
     Column {
         OutlinedTextField(modifier = Modifier.fillMaxWidth(),
             value = email,
@@ -120,8 +132,15 @@ fun ContainerOutlineInput(
 
         Button(
             modifier = Modifier.fillMaxWidth(),
-            onClick = { loginViewModel.verifyEmptyInputs(auth, navController) }) {
-            Text(stringResource(R.string.button_text_login), fontSize = 14.sp)
+            onClick = { loginViewModel.verifyEmptyInputs(auth, inputsText, navController) }) {
+            if (!isLoading) {
+                Text(stringResource(R.string.button_text_login), fontSize = 14.sp)
+            } else {
+                CircularProgressIndicator(
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
         }
     }
 }

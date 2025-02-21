@@ -1,6 +1,7 @@
 package com.example.budgetly.login.viewModel
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,6 +25,9 @@ class LoginViewModel @Inject constructor(@ApplicationContext private val context
     private val _isVisible = MutableLiveData(false)
     val isVisible: LiveData<Boolean> = _isVisible
 
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
     fun onChangeEmail(emailText: String) {
         _email.value = emailText
     }
@@ -36,11 +40,13 @@ class LoginViewModel @Inject constructor(@ApplicationContext private val context
         _isVisible.value = !_isVisible.value!!
     }
 
-    fun verifyEmptyInputs(auth: FirebaseAuth, navController: NavController) {
+    fun verifyEmptyInputs(auth: FirebaseAuth, inputsText: String, navController: NavController) {
         if (_email.value!!.isEmpty() || _password.value!!.isEmpty()) {
+            Toast.makeText(context, inputsText, Toast.LENGTH_LONG).show()
             return
         }
 
+        _isLoading.value = true
         auth.signInWithEmailAndPassword(_email.value!!, _password.value!!)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -49,6 +55,7 @@ class LoginViewModel @Inject constructor(@ApplicationContext private val context
                     Toast.makeText(context, "No se pudo loguear", Toast.LENGTH_LONG).show()
                 }
             }
+        _isLoading.value = false
     }
 
 }

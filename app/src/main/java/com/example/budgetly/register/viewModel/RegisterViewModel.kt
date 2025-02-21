@@ -19,6 +19,9 @@ class RegisterViewModel @Inject constructor(@ApplicationContext private val cont
     private val _step = MutableLiveData(1)
     val step: LiveData<Int> = _step
 
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
     //Firs Step
     private val _name = MutableLiveData("")
     val name: LiveData<String> = _name
@@ -167,6 +170,7 @@ class RegisterViewModel @Inject constructor(@ApplicationContext private val cont
                     return
                 }
 
+                _isLoading.value = true
                 auth.createUserWithEmailAndPassword(_email.value!!, _password.value!!)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
@@ -181,6 +185,7 @@ class RegisterViewModel @Inject constructor(@ApplicationContext private val cont
                             }
                         }
                     }
+                _isLoading.value = false
             }
         }
     }

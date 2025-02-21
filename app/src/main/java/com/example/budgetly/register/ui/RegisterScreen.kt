@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -43,6 +44,7 @@ fun RegisterScreen(
     registerViewModel: RegisterViewModel = hiltViewModel()
 ) {
     val step by registerViewModel.step.observeAsState(1)
+    val isLoading by registerViewModel.isLoading.observeAsState(false)
 
     //First Step
     val name by registerViewModel.name.observeAsState("")
@@ -93,7 +95,15 @@ fun RegisterScreen(
             step
         )
 
-        Footer(step, textInputsEmpty, textPasswordsDiff, navController, auth, registerViewModel)
+        Footer(
+            step,
+            textInputsEmpty,
+            textPasswordsDiff,
+            navController,
+            auth,
+            registerViewModel,
+            isLoading
+        )
     }
 }
 
@@ -189,14 +199,29 @@ fun Footer(
     textPasswordsDiff: String,
     navController: NavController,
     auth: FirebaseAuth,
-    registerViewModel: RegisterViewModel
+    registerViewModel: RegisterViewModel,
+    isLoading: Boolean
 ) {
     Column {
         RegisterAdvance(step, NUMBER_OF_STEPS)
 
         Spacer(Modifier.size(24.dp))
 
-        CustomButton(if (step == 3) stringResource(R.string.register_register) else stringResource(R.string.next_register)) {
+        CustomButton(buttonContainer = {
+            if (!isLoading) {
+                Text(
+                    if (step == 3) stringResource(R.string.register_register) else stringResource(
+                        R.string.next_register
+                    ), style = MaterialTheme.typography.bodyMedium
+                )
+            } else {
+                CircularProgressIndicator(
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+
+        }) {
             registerViewModel.onValidateInputs(
                 textInputsEmpty,
                 textPasswordsDiff,

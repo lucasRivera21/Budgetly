@@ -1,5 +1,7 @@
 package com.example.budgetly.navigation
 
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -13,11 +15,23 @@ import com.example.budgetly.register.ui.RegisterScreen
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
-fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController, auth: FirebaseAuth) {
+fun AppNavigation(
+    innerPadding: PaddingValues,
+    navController: NavHostController,
+    auth: FirebaseAuth
+) {
 
     val modifier = Modifier.padding(innerPadding)
 
-    NavHost(navController = navController, startDestination = NavigationItem.Login.route) {
+    NavHost(
+        navController = navController,
+        startDestination = NavigationItem.Login.route,
+        enterTransition = {
+            slideInHorizontally()
+        },
+        exitTransition = {
+            slideOutHorizontally()
+        }) {
         composable(NavigationItem.Login.route) {
             LoginScreen(modifier, navController, auth)
         }
