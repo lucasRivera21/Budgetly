@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.budgetly.SplashScreen
 import com.example.budgetly.home.Home
 import com.example.budgetly.login.ui.LoginScreen
 import com.example.budgetly.register.ui.RegisterScreen
@@ -25,13 +26,17 @@ fun AppNavigation(
 
     NavHost(
         navController = navController,
-        startDestination = NavigationItem.Login.route,
+        startDestination = NavigationItem.Splash.route,
         enterTransition = {
             slideInHorizontally()
         },
         exitTransition = {
             slideOutHorizontally()
         }) {
+        composable(NavigationItem.Splash.route) {
+            SplashScreen(navController, auth)
+        }
+
         composable(NavigationItem.Login.route) {
             LoginScreen(modifier, navController, auth)
         }

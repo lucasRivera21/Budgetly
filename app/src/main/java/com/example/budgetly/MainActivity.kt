@@ -6,12 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.budgetly.navigation.AppNavigation
-import com.example.budgetly.navigation.NavigationItem
 import com.example.budgetly.ui.theme.AppTheme
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -31,12 +29,6 @@ class MainActivity : ComponentActivity() {
                 navController = rememberNavController()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     AppNavigation(innerPadding, navController, auth)
-                }
-            }
-
-            LaunchedEffect(auth.currentUser) {
-                if (auth.currentUser != null) {
-                    navController.navigate(NavigationItem.Home.route)
                 }
             }
         }
