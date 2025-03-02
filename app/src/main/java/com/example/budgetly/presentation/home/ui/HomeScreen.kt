@@ -1,9 +1,9 @@
-package com.example.budgetly.presentation.home
+package com.example.budgetly.presentation.home.ui
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun Home(){
-    Text("Home")
+fun HomeScreen(){
+    Text("Home Screen")
 }
