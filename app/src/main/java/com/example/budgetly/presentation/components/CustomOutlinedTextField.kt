@@ -1,4 +1,4 @@
-package com.example.budgetly.components
+package com.example.budgetly.presentation.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.OutlinedTextField

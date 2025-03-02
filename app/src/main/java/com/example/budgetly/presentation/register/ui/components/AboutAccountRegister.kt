@@ -1,4 +1,4 @@
-package com.example.budgetly.register.ui.components
+package com.example.budgetly.presentation.register.ui.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -8,9 +8,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.budgetly.R
-import com.example.budgetly.components.CustomOutlinedTextField
-import com.example.budgetly.components.CustomPasswordTextField
-import com.example.budgetly.register.viewModel.RegisterViewModel
+import com.example.budgetly.presentation.components.CustomOutlinedTextField
+import com.example.budgetly.presentation.components.CustomPasswordTextField
+import com.example.budgetly.presentation.register.viewModel.RegisterViewModel
 
 @Composable
 fun AboutAccountRegister(

@@ -1,4 +1,4 @@
-package com.example.budgetly.register.ui.components
+package com.example.budgetly.presentation.register.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

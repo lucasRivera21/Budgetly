@@ -9,10 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.budgetly.SplashScreen
-import com.example.budgetly.home.Home
-import com.example.budgetly.login.ui.LoginScreen
-import com.example.budgetly.register.ui.RegisterScreen
+import com.example.budgetly.presentation.SplashScreen
+import com.example.budgetly.presentation.home.Home
+import com.example.budgetly.presentation.login.ui.LoginScreen
+import com.example.budgetly.presentation.register.ui.RegisterScreen
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable

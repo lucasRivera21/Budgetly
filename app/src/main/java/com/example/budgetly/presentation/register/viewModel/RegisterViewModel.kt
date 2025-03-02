@@ -1,4 +1,4 @@
-package com.example.budgetly.register.viewModel
+package com.example.budgetly.presentation.register.viewModel
 
 import android.content.Context
 import android.widget.Toast
@@ -6,8 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.example.budgetly.data.CollectionItem
 import com.example.budgetly.navigation.NavigationItem
+import com.example.budgetly.presentation.register.models.User
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.Year
@@ -137,6 +141,8 @@ class RegisterViewModel @Inject constructor(@ApplicationContext private val cont
     fun onValidateInputs(
         textToast: String,
         textToastRepeat: String,
+        textEmailInUse: String,
+        textErrorRegister: String,
         navController: NavController,
         auth: FirebaseAuth
     ) {
@@ -174,19 +180,46 @@ class RegisterViewModel @Inject constructor(@ApplicationContext private val cont
                 auth.createUserWithEmailAndPassword(_email.value!!, _password.value!!)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            navController.navigate(NavigationItem.Home.route)
+                            saveInfoUser(task.result.user?.uid, textErrorRegister, navController)
                         } else {
-                            if(task.exception?.message == "The email address is already in use by another account."){
-                                Toast.makeText(context, "El correo ya esta en uso", Toast.LENGTH_LONG)
+                            if (task.exception?.message == "The email address is already in use by another account.") {
+                                Toast.makeText(
+                                    context,
+                                    textEmailInUse,
+                                    Toast.LENGTH_LONG
+                                )
                                     .show()
-                            }else{
-                                Toast.makeText(context, "No se pudo registrar", Toast.LENGTH_LONG)
+                            } else {
+                                Toast.makeText(context, textErrorRegister, Toast.LENGTH_LONG)
                                     .show()
                             }
                         }
                     }
                 _isLoading.value = false
             }
+        }
+    }
+
+    private fun saveInfoUser(
+        uid: String?,
+        textErrorRegister: String,
+        navController: NavController
+    ) {
+        val user = User(
+            uid = uid,
+            name = _name.value,
+            lastName = _lastName.value,
+            birthday = "${_dayValue.value}-${_monthValue.value}-${_yearValue.value}",
+            income = _incomeValue.value,
+            moneyType = _moneyType.value,
+            incomeConcurrent = _incomeConcurrent.value
+        )
+
+        val db = Firebase.firestore
+        db.collection(CollectionItem.Users.collectionName).add(user).addOnSuccessListener {
+            navController.navigate(NavigationItem.Home.route)
+        }.addOnFailureListener {
+            Toast.makeText(context, textErrorRegister, Toast.LENGTH_LONG).show()
         }
     }
 }

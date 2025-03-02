@@ -1,4 +1,4 @@
-package com.example.budgetly.register.ui
+package com.example.budgetly.presentation.register.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,12 +28,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.budgetly.Credentials.Companion.NUMBER_OF_STEPS
 import com.example.budgetly.R
-import com.example.budgetly.components.CustomButton
-import com.example.budgetly.register.ui.components.AboutAccountRegister
-import com.example.budgetly.register.ui.components.AboutIncomeRegister
-import com.example.budgetly.register.ui.components.AboutUserRegister
-import com.example.budgetly.register.ui.components.RegisterAdvance
-import com.example.budgetly.register.viewModel.RegisterViewModel
+import com.example.budgetly.presentation.components.CustomButton
+import com.example.budgetly.presentation.register.ui.components.AboutAccountRegister
+import com.example.budgetly.presentation.register.ui.components.AboutIncomeRegister
+import com.example.budgetly.presentation.register.ui.components.AboutUserRegister
+import com.example.budgetly.presentation.register.ui.components.RegisterAdvance
+import com.example.budgetly.presentation.register.viewModel.RegisterViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
@@ -65,6 +65,8 @@ fun RegisterScreen(
 
     val textInputsEmpty = stringResource(R.string.validate_inputs_empty)
     val textPasswordsDiff = stringResource(R.string.validate_passwords_diff)
+    val textEmailInUse = stringResource(R.string.email_in_use)
+    val textErrorRegister = stringResource(R.string.error_register)
 
     LaunchedEffect(Unit) {
         registerViewModel.getCurrentYear()
@@ -99,6 +101,8 @@ fun RegisterScreen(
             step,
             textInputsEmpty,
             textPasswordsDiff,
+            textEmailInUse,
+            textErrorRegister,
             navController,
             auth,
             registerViewModel,
@@ -197,6 +201,8 @@ fun Footer(
     step: Int,
     textInputsEmpty: String,
     textPasswordsDiff: String,
+    textEmailInUse: String,
+    textErrorRegister: String,
     navController: NavController,
     auth: FirebaseAuth,
     registerViewModel: RegisterViewModel,
@@ -225,6 +231,8 @@ fun Footer(
             registerViewModel.onValidateInputs(
                 textInputsEmpty,
                 textPasswordsDiff,
+                textEmailInUse,
+                textErrorRegister,
                 navController,
                 auth
             )

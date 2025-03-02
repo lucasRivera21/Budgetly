@@ -1,4 +1,4 @@
-package com.example.budgetly
+package com.example.budgetly.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

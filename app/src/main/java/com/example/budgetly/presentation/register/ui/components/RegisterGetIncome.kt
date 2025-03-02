@@ -1,4 +1,4 @@
-package com.example.budgetly.register.ui.components
+package com.example.budgetly.presentation.register.ui.components
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -6,7 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.res.stringResource
 import com.chargemap.compose.numberpicker.ListItemPicker
 import com.example.budgetly.R
-import com.example.budgetly.register.viewModel.RegisterViewModel
+import com.example.budgetly.presentation.register.viewModel.RegisterViewModel
 
 @Composable
 fun RegisterGetIncome(

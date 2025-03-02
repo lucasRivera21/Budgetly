@@ -1,4 +1,4 @@
-package com.example.budgetly.login.ui
+package com.example.budgetly.presentation.login.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.budgetly.R
-import com.example.budgetly.login.viewModel.LoginViewModel
+import com.example.budgetly.presentation.login.viewModel.LoginViewModel
 import com.example.budgetly.navigation.NavigationItem
 import com.google.firebase.auth.FirebaseAuth
 

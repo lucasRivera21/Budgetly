@@ -1,4 +1,4 @@
-package com.example.budgetly.components
+package com.example.budgetly.presentation.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
@@ -25,7 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.budgetly.register.viewModel.RegisterViewModel
+import com.example.budgetly.presentation.register.viewModel.RegisterViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

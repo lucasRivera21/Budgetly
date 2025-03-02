@@ -1,4 +1,4 @@
-package com.example.budgetly.login.viewModel
+package com.example.budgetly.presentation.login.viewModel
 
 import android.content.Context
 import android.util.Log
