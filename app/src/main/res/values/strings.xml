@@ -46,6 +46,12 @@
     <string name="validate_passwords_diff">Contraseñas diferentes</string>
     <string name="email_in_use">El correo ya esta en uso</string>
     <string name="error_register">No se pudo registrar</string>
+    
+    <!--Home-->
+    <string name="hello_home">Buenas</string>
+    <string name="title_graph">Resumen de gastos mensual</string>
+    <string name="for_you_home">Para tus gustos:</string>
+    <string name="next_expenses">Proximos pagos:</string>
 
     <!--Bottom Bar Navigation-->
     <string name="expense_title">Gastos</string>

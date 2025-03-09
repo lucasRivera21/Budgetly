@@ -82,6 +82,9 @@ dependencies {
 
     //Picker
     implementation(libs.numberpicker)
+
+    //Chart
+    implementation (libs.compose.charts)
 }
 
 kapt {
