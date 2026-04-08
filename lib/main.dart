@@ -1,3 +1,4 @@
+import 'package:budgetly/auth/presentation/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,7 +15,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: GoogleFonts.onestTextTheme(Theme.of(context).textTheme),
       ),
-      home: Scaffold(body: Center(child: Text('Hello World!'))),
+      home: LoginScreen(),
     );
   }
 }
