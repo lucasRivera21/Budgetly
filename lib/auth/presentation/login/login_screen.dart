@@ -1,8 +1,10 @@
 import 'package:budgetly/core/presentation/components/custom_button.dart';
 import 'package:budgetly/core/presentation/components/custom_text_field.dart';
 import 'package:budgetly/l10n/app_localizations.dart';
+import 'package:budgetly/navigation/app_route.dart';
 import 'package:budgetly/theme/custom_color.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -23,33 +25,42 @@ class LoginScreen extends StatelessWidget {
                 form(context),
                 forgotPassword(context),
                 buttonContainer(context),
-                Row(
-                  spacing: 4,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.dontAccount,
-                      style: TextStyle(
-                        color: CustomColor.onSurfaceContainer,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      AppLocalizations.of(context)!.createAccount,
-                      style: TextStyle(
-                        color: CustomColor.primary,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
+                createAccountContainer(context),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Row createAccountContainer(BuildContext context) {
+    return Row(
+      spacing: 4,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          AppLocalizations.of(context)!.dontAccount,
+          style: TextStyle(
+            color: CustomColor.onSurfaceContainer,
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            context.go(AppRoute.registerRoute);
+          },
+          child: Text(
+            AppLocalizations.of(context)!.createAccount,
+            style: TextStyle(
+              color: CustomColor.primary,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
