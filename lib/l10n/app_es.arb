@@ -1,0 +1,14 @@
+{
+    "terms": "",
+    "email": "Correo",
+    "emailPlaceholder": "tu@correo.com",
+    "password": "Contraseña",
+
+    "loginScreen": "",
+    "loginDescription": "Inicia sesión para gestionar tu presupuesto",
+    "forgetPassword": "¿Olvidaste tu Contraseña?",
+    "signIn": "Iniciar sesión",
+    "signInWithGoogle": "Continuar con Google",
+    "dontAccount": "¿No tienes cuenta?",
+    "createAccount": "Crear cuenta"
+}

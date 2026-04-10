@@ -1,0 +1,14 @@
+{
+    "terms": "",
+    "email": "Email",
+    "emailPlaceholder": "your@email.com",
+    "password": "Password",
+
+    "loginScreen": "",
+    "loginDescription": "Sign in to manage your budget",
+    "forgetPassword": "Did you forget your password?",
+    "signIn": "Sign in",
+    "signInWithGoogle": "Sign in with Google",
+    "dontAccount": "Don't you have an account?",
+    "createAccount": "Create Account"
+}

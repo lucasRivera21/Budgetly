@@ -1,5 +1,6 @@
 import 'package:budgetly/core/presentation/components/custom_button.dart';
 import 'package:budgetly/core/presentation/components/custom_text_field.dart';
+import 'package:budgetly/l10n/app_localizations.dart';
 import 'package:budgetly/theme/custom_color.dart';
 import 'package:flutter/material.dart';
 
@@ -18,16 +19,16 @@ class LoginScreen extends StatelessWidget {
               spacing: 20,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                header(),
-                form(),
-                forgotPassword(),
-                buttonContainer(),
+                header(context),
+                form(context),
+                forgotPassword(context),
+                buttonContainer(context),
                 Row(
                   spacing: 4,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "¿No tienes cuenta?",
+                      AppLocalizations.of(context)!.dontAccount,
                       style: TextStyle(
                         color: CustomColor.onSurfaceContainer,
                         fontSize: 12,
@@ -35,7 +36,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Crear cuenta",
+                      AppLocalizations.of(context)!.createAccount,
                       style: TextStyle(
                         color: CustomColor.primary,
                         fontWeight: FontWeight.w700,
@@ -52,9 +53,9 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Text forgotPassword() {
+  Text forgotPassword(BuildContext context) {
     return Text(
-      "¿Olvidaste tu contraseña?",
+      AppLocalizations.of(context)!.forgetPassword,
       style: TextStyle(
         color: CustomColor.primary,
         fontSize: 12,
@@ -63,19 +64,19 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Column buttonContainer() {
+  Column buttonContainer(BuildContext context) {
     return Column(
       spacing: 8,
       children: [
         CustomButton(
-          textButton: 'Iniciar sesión',
+          textButton: AppLocalizations.of(context)!.signIn,
           bgButton: CustomColor.primary,
           textColor: CustomColor.onPrimary,
           borderColor: CustomColor.primary,
           onPressed: () {},
         ),
         CustomButton(
-          textButton: 'Continuar con Google',
+          textButton: AppLocalizations.of(context)!.signInWithGoogle,
           bgButton: CustomColor.surfaceContainer,
           textColor: CustomColor.onSurface,
           borderColor: CustomColor.outline,
@@ -86,18 +87,18 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Column form() {
+  Column form(BuildContext context) {
     return Column(
       spacing: 12,
       children: [
         CustomTextField(
-          labelText: 'Correo',
-          placeholderText: 'tu@correo.com',
+          labelText: AppLocalizations.of(context)!.email,
+          placeholderText: AppLocalizations.of(context)!.emailPlaceholder,
           onValueChange: (String p1) {},
           textInputType: TextInputType.emailAddress,
         ),
         CustomTextField(
-          labelText: 'Contraseña',
+          labelText: AppLocalizations.of(context)!.password,
           placeholderText: '••••••••',
           onValueChange: (String p1) {},
           textInputType: TextInputType.visiblePassword,
@@ -107,7 +108,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Column header() {
+  Column header(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 8,
@@ -121,7 +122,7 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
         Text(
-          "Inicia sesión para gestionar tu presupuesto",
+          AppLocalizations.of(context)!.loginDescription,
           style: TextStyle(color: CustomColor.onSurfaceContainer),
         ),
       ],
