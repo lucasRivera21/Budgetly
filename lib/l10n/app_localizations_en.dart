@@ -21,6 +21,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get password => 'Password';
 
   @override
+  String get createAccount => 'Create Account';
+
+  @override
+  String get nameLabel => 'Name';
+
+  @override
+  String get namePlaceholder => 'EJ. Jhon Smith';
+
+  @override
+  String get confirmPassword => 'Confirm password';
+
+  @override
   String get loginScreen => '';
 
   @override
@@ -39,5 +51,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dontAccount => 'Don\'t you have an account?';
 
   @override
-  String get createAccount => 'Create Account';
+  String get registerScreen => '';
+
+  @override
+  String get registerDescription => 'Create your profile to start managing your finances';
+
+  @override
+  String get haveAccount => 'Do you already have an account?';
 }

@@ -119,6 +119,30 @@ abstract class AppLocalizations {
   /// **'Password'**
   String get password;
 
+  /// No description provided for @createAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get createAccount;
+
+  /// No description provided for @nameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get nameLabel;
+
+  /// No description provided for @namePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'EJ. Jhon Smith'**
+  String get namePlaceholder;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get confirmPassword;
+
   /// No description provided for @loginScreen.
   ///
   /// In en, this message translates to:
@@ -155,11 +179,23 @@ abstract class AppLocalizations {
   /// **'Don\'t you have an account?'**
   String get dontAccount;
 
-  /// No description provided for @createAccount.
+  /// No description provided for @registerScreen.
   ///
   /// In en, this message translates to:
-  /// **'Create Account'**
-  String get createAccount;
+  /// **''**
+  String get registerScreen;
+
+  /// No description provided for @registerDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your profile to start managing your finances'**
+  String get registerDescription;
+
+  /// No description provided for @haveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you already have an account?'**
+  String get haveAccount;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

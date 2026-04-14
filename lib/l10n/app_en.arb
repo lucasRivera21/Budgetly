@@ -3,6 +3,10 @@
     "email": "Email",
     "emailPlaceholder": "your@email.com",
     "password": "Password",
+    "createAccount": "Create Account",
+    "nameLabel": "Name",
+    "namePlaceholder": "EJ. Jhon Smith",
+    "confirmPassword": "Confirm password",
 
     "loginScreen": "",
     "loginDescription": "Sign in to manage your budget",
@@ -10,5 +14,8 @@
     "signIn": "Sign in",
     "signInWithGoogle": "Sign in with Google",
     "dontAccount": "Don't you have an account?",
-    "createAccount": "Create Account"
+
+    "registerScreen": "",
+    "registerDescription": "Create your profile to start managing your finances",
+    "haveAccount": "Do you already have an account?"
 }

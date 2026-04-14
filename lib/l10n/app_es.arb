@@ -3,6 +3,10 @@
     "email": "Correo",
     "emailPlaceholder": "tu@correo.com",
     "password": "Contraseña",
+    "createAccount": "Crear cuenta",
+    "nameLabel": "Nombre",
+    "namePlaceholder": "EJ. Ana Gomez",
+    "confirmPassword": "Confirmar contraseña",
 
     "loginScreen": "",
     "loginDescription": "Inicia sesión para gestionar tu presupuesto",
@@ -10,5 +14,9 @@
     "signIn": "Iniciar sesión",
     "signInWithGoogle": "Continuar con Google",
     "dontAccount": "¿No tienes cuenta?",
-    "createAccount": "Crear cuenta"
+
+    "registerScreen": "",
+    "registerDescription": "Crea tu perfil para empezar a controlar tus finanzas",
+    "haveAccount": "¿Ya tienes cuenta?"
+
 }
