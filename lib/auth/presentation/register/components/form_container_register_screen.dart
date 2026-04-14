@@ -1,9 +1,12 @@
+import 'package:budgetly/auth/presentation/register/register_view_model.dart';
 import 'package:budgetly/core/presentation/components/custom_text_field.dart';
 import 'package:budgetly/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class FormContainerRegisterScreen extends StatelessWidget {
-  const FormContainerRegisterScreen({super.key});
+  final RegisterViewModel viewModel;
+
+  const FormContainerRegisterScreen({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -13,22 +16,32 @@ class FormContainerRegisterScreen extends StatelessWidget {
         CustomTextField(
           labelText: AppLocalizations.of(context)!.nameLabel,
           placeholderText: AppLocalizations.of(context)!.namePlaceholder,
-          onValueChange: (value) {},
+          onValueChange: (value) {
+            viewModel.updateFields(name: value);
+          },
         ),
         CustomTextField(
           labelText: AppLocalizations.of(context)!.email,
           placeholderText: AppLocalizations.of(context)!.emailPlaceholder,
-          onValueChange: (value) {},
+          onValueChange: (value) {
+            viewModel.updateFields(email: value);
+          },
         ),
         CustomTextField(
           labelText: AppLocalizations.of(context)!.password,
-          placeholderText: "••••••••",
-          onValueChange: (value) {},
+          placeholderText: "",
+          onValueChange: (value) {
+            viewModel.updateFields(password: value);
+          },
+          isPasswordInput: true,
         ),
         CustomTextField(
           labelText: AppLocalizations.of(context)!.confirmPassword,
-          placeholderText: "••••••••",
-          onValueChange: (value) {},
+          placeholderText: "",
+          onValueChange: (value) {
+            viewModel.updateFields(confirmPassword: value);
+          },
+          isPasswordInput: true,
         ),
       ],
     );

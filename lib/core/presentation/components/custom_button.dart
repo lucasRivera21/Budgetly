@@ -29,7 +29,7 @@ class CustomButton extends StatelessWidget {
         side: WidgetStatePropertyAll(BorderSide(color: borderColor)),
       ),
       onPressed: () {
-        onPressed;
+        onPressed();
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
